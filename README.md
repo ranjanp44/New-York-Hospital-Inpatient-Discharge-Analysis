@@ -1,4 +1,7 @@
 # New-York-Hospital-Inpatient-Discharge-Analysis
+**Dataset**: [Kaggle - Hospital Discharge](https://www.kaggle.com/datasets/jonasalmeida/2015-deidentified-ny-inpatient-discharge-sparcs/data)
+
+
 Performed end-to-end exploratory data analysis on 1M+ hospital discharge records using Excel, SQL, Python, and Power BI to uncover high-cost diagnoses, patient trends, and hospital profitability insights.
 
 • Excel : Performed initial data cleaning, explored data types and added profit column for quick insights.
