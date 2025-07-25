@@ -1,0 +1,156 @@
+# Average length of stay
+SELECT 
+    ROUND(AVG(length_of_stay), 2) AS average_stay
+FROM
+    hospital_discharges;
+
+
+# Top 5 Diagnosis
+SELECT 
+    `CCS Diagnosis Description`,
+    COUNT(`CCS Diagnosis Description`) AS number_of_diagnosis
+FROM
+    hospital_discharges
+GROUP BY `CCS Diagnosis Description`
+ORDER BY number_of_diagnosis DESC
+LIMIT 5;
+
+
+# Number of patients wrt gender
+SELECT 
+    gender, COUNT(*) AS number_of_patients
+FROM
+    hospital_discharges
+GROUP BY gender;
+
+
+# Top 10 Payment method
+SELECT 
+    payment_method,
+    ROUND(AVG(total_charges), 2) AS average_payment
+FROM
+    hospital_discharges
+GROUP BY payment_method
+ORDER BY average_payment DESC
+LIMIT 10;
+
+
+# Percentage contribution vs Payment method
+SELECT 
+    payment_method,
+    ROUND(SUM(total_charges) * 100 / (SELECT 
+                    SUM(total_charges)
+                FROM
+                    hospital_discharges),
+            2) AS percentage_contribution
+FROM
+    hospital_discharges
+GROUP BY payment_method
+ORDER BY percentage_contribution DESC
+LIMIT 5;
+
+
+# Average Length of stay wrt Age groups
+SELECT 
+    age_group,
+    CONCAT(ROUND(AVG(length_of_stay), 2), ' days') AS average_stay
+FROM
+    hospital_discharges
+GROUP BY age_group
+ORDER BY age_group;
+
+
+# Number of patients- Patient Disposition
+SELECT 
+    patient_disposition, COUNT(*) AS number_of_patients
+FROM
+    hospital_discharges
+GROUP BY patient_disposition
+ORDER BY number_of_patients DESC
+LIMIT 5;
+
+
+
+# total charges collected by hospitals
+SELECT 
+    health_service_area,
+    CONCAT('$ ',
+            ROUND(SUM(total_charges) / 1000000000, 2),
+            ' B') AS revenue
+FROM
+    hospital_discharges
+GROUP BY health_service_area
+ORDER BY revenue DESC
+LIMIT 8;
+
+
+# number of patients and their percentage wrt race
+SELECT 
+    race,
+    COUNT(*) AS number_of_patients,
+    CONCAT(ROUND(COUNT(race) * 100 / (SELECT 
+                            COUNT(*)
+                        FROM
+                            hospital_discharges),
+                    2),
+            ' %') AS percentage
+FROM
+    hospital_discharges
+GROUP BY race;
+
+
+# Number of patients wrt type of admission
+SELECT 
+    `Type of Admission`, COUNT(*) AS number_of_patients
+FROM
+    hospital_discharges
+GROUP BY `Type of Admission`
+
+
+# Risk level of patients
+SELECT 
+    `APR Risk of Mortality`, COUNT(*) AS number_of_patients
+FROM
+    hospital_discharges
+GROUP BY `APR Risk of Mortality`
+ORDER BY number_of_patients DESC
+LIMIT 4;
+
+
+# Number of patients wrt hospital county
+SELECT 
+    `hospital_county`, COUNT(*) AS number_of_patients
+FROM
+    hospital_discharges
+GROUP BY `hospital_county`
+ORDER BY number_of_patients DESC
+LIMIT 10;
+
+
+# Facility distribution
+SELECT 
+    `facility_name`, COUNT(*) AS number_of_patients
+FROM
+    hospital_discharges
+GROUP BY `facility_name`
+ORDER BY number_of_patients DESC
+LIMIT 5;
+
+
+# Number of patients wrt ethnicity
+SELECT 
+    `ethnicity`, COUNT(*) AS number_of_patients
+FROM
+    hospital_discharges
+GROUP BY `ethnicity`
+ORDER BY number_of_patients;
+
+
+# Number of patients wrt Zip code
+SELECT 
+    `Zip Code - 3 digits`, COUNT(*) AS number_of_patients
+FROM
+    hospital_discharges
+GROUP BY `Zip Code - 3 digits`
+ORDER BY number_of_patients DESC
+LIMIT 5;
