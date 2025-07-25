@@ -154,3 +154,14 @@ FROM
 GROUP BY `Zip Code - 3 digits`
 ORDER BY number_of_patients DESC
 LIMIT 5;
+
+
+# Average charge per diagnosis
+SELECT 
+    `CCS Diagnosis Description`,
+    ROUND(AVG(total_charges), 2) AS average_charge
+FROM
+    hospital_discharges
+GROUP BY `CCS Diagnosis Description`
+ORDER BY average_charge DESC
+LIMIT 5;
